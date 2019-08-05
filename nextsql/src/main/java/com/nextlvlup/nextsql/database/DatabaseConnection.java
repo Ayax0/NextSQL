@@ -70,11 +70,8 @@ public class DatabaseConnection {
 	
 	public ResultSet getResult(PreparedStatement ps){
 		try {
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				return rs;
-			}
 			resetTimeout();
+			return ps.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
