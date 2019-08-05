@@ -66,12 +66,33 @@ public class DatabaseConnection {
 		}
 	}
 	
-	//Result
+	//ResultList
 	
-	public ResultSet getResult(PreparedStatement ps){
+	public ResultSet getResultList(PreparedStatement ps){
 		try {
 			resetTimeout();
 			return ps.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ResultSet getResultList(String query){
+		return getResultList(getPreparedStatement(query));
+	}
+	
+	public ResultSet getResultList(SelectStatement statement){
+		return getResultList(statement.getStatement());
+	}
+	
+	//Result
+	
+	public ResultSet getResult(PreparedStatement ps){
+		ResultSet rs = getResultList(ps);
+		try {
+			rs.first();
+			return rs;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
