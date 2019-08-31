@@ -45,6 +45,9 @@ public class InsertStatement extends Statement {
 		String statement = "INSERT INTO " + table + " (";
 		String keys = "";
 		String values = ") VALUES (";
+		
+		if(fields.size() == 0) return "INSERT INTO " + table + " VALUES ()";
+		
 		for(String key : fields.keySet()) {
 			keys += key + ",";
 			values += fields.get(key) + ",";
