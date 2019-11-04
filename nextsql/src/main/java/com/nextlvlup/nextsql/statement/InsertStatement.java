@@ -3,6 +3,9 @@ package com.nextlvlup.nextsql.statement;
 import java.sql.Timestamp;
 import java.util.HashMap;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.nextlvlup.nextsql.injection.ProtectedString;
 
 public class InsertStatement extends Statement {
@@ -16,7 +19,10 @@ public class InsertStatement extends Statement {
 	}
 	
 	public void addValue(String key, Object value) {
-		if(value instanceof String || value instanceof Timestamp) {
+		if(value instanceof String || 
+				value instanceof Timestamp || 
+				value instanceof JSONObject ||
+				value instanceof JSONArray) {
 			fields.put(key, "'" + new ProtectedString(value).a() + "'");
 		}else {
 			fields.put(key, new ProtectedString(value).a());
